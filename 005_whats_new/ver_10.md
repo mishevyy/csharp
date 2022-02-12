@@ -1,69 +1,51 @@
-// https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/operators/lambda-expressions#natural-type-for-lambda-expressions
+# Новые возможности C# 10.0
 
-// Естественный тип для лямбда выражении
+## Естественный тип для лямбда выражении
 
+[лямбда]( https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/operators/lambda-expressions#natural-type-for-lambda-expressions)
+
+
+```c#
 var op = (string s) => Console.WriteLine(s);
 op("asdasd");
+```
 
+## Структуры записей
 
+Возможность объявлять типы записей как структуры или ссылочный тип
+В оставшейся части этой статьи обсуждаются типы record class и record struct. Различия подробно описаны в каждом разделе. Выберите между record class и record struct, как вы выбираете между class и struct. Термин запись используется для описания поведения, которое применяется ко всем типам записей. record struct или record class используется для описания поведения, которое применяется только к типам структур или классов соответственно.
+Раньше можно было создавать записи только ссылочного типа record `MyRecordS(double X, double Y);`
+Типы записей могут запечатывать ToString
 
-// https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/builtin-types/record
-// Добавлена возможность создавать рекорды на основе структур и структур доступных только для чтения
-// Раньше можно было создавать записи только ссылочного типа record MyRecordS(double X, double Y);
-
+```c#
 record struct RecordStruct(double X, double Y);
 readonly record struct ReadonlyRecordStruct(double X, double Y);
+record class MyRecordClass();
+```
 
+## Конструкторы без параметров и инициализаторы полей для типов структур
 
-
-namespace str
+```c#
+public readonly struct Measurement
 {
-    // https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/builtin-types/struct#parameterless-constructors-and-field-initializers
-    readonly struct MyStruct
+    public Measurement()
     {
-        // Возможно объявить структуру с конструктором без параметров
-        public MyStruct()
-        {
-
-        }
-    }
-    
-    class Progrann
-    {
-        static void Main()
-        {
-            MyStruct mc = new MyStruct();
-        }
+        Value = double.NaN;
+        Description = "Undefined";
     }
 
+    public Measurement(double value, string description)
+    {
+        Value = value;
+        Description = description;
+    }
+
+    public double Value { get; init; }
+    public string Description { get; init; }
+
+    public override string ToString() => $"{Value} ({Description})";
 }
+```
 
-
-
-namespace w
-{
-    record MyRecord
-    {
-        public int Id { get; set; }
-    }
-
-    struct MyStruct
-    {
-        public double X { get; set; }
-    }
-    
-    class Programm
-    {
-        static void Main()
-        {
-            MyRecord i1 = new MyRecord() { Id = 50 };
-    
-            // Выражение with создает копию своего операнда
-            MyRecord i2 = i1 with { Id = 100 };
-    
-            // в c# 10 with стал доступен для структур
-            MyStruct s1 = new MyStruct() { X = 2.0 };
-            MyStruct s2 = s1 with { X = 3.0 };
-        }
-    }
-}
+### Глобальные директивы using
+`global using <fully-qualified-namespace>;`
