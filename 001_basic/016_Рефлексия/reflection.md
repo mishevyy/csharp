@@ -7,7 +7,6 @@
 Способы получения информации о классе.
 
 ```c#
-using System.Reflection;
 Type type;
 type = myClass.GetType();
 type = Type.GetType("reflection1.Class1");// Полное квалифицированое имя типа в строковом представлении.

@@ -13,8 +13,6 @@ Func<int, int> func = x => delta * x;
 int result = func(5);
 ```
 
-***
-
 ## Объединение
 
 _Комбинирует два и более делегата в один._
@@ -32,8 +30,6 @@ Func<T1, T2> Chain<T1, R, T2>(Func<T1, R> f1, Func<R, T2> f2)
     return x => f2.Invoke(f1.Invoke(x));
 }
 ```
-
-***
 
 ## Карирование (currying)
 
@@ -80,8 +76,6 @@ class Program
     }
 }
 ```
-
-***
 
 ## Мемоизация
 
