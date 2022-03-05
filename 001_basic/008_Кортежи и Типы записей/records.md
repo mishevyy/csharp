@@ -100,7 +100,7 @@ public static void Main()
 
 ### Встроенное форматирование для отображения
 
-ипы записей имеют создаваемый компилятором метод [ToString](https://docs.microsoft.com/ru-ru/dotnet/api/system.object.tostring), который отображает имена и значения открытых свойств и полей. Метод `ToString` возвращает строку в следующем формате:
+Типы записей имеют создаваемый компилятором метод [ToString](https://docs.microsoft.com/ru-ru/dotnet/api/system.object.tostring), который отображает имена и значения открытых свойств и полей. Метод `ToString` возвращает строку в следующем формате:
 
 > <record type name> { <property name> = <value>, <property name> = <value>, ...}
 

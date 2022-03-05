@@ -7,7 +7,6 @@
 class MyIndexer
 {
     private int[] t_stuff;
-
     public int Length { get => t_stuff.Length; }
 
     public int this[int i]
@@ -16,7 +15,7 @@ class MyIndexer
         {
             if(i > Length)
                 throw new IndexOutOfRangeException();
-
+            
             return t_stuff[i];
         }
         set
