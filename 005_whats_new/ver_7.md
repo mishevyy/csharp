@@ -176,3 +176,30 @@ else
 #### Модификатор доступа private protected
 
 Новый составной модификатор доступа `private protected` указывает, что доступ к члену может осуществляться содержащим классом или производными классами, которые объявлены в рамках одной сборки.
+
+## Ограничение дженерика типом Enum
+
+```c#
+enum Rainbow
+{
+    Red,
+    Orange,
+    Yellow        
+}
+
+static Dictionary<int, string> EnumNamedValues<T>() where T : Enum
+{
+    var result = new Dictionary<int, string>();
+    var values = Enum.GetValues(typeof(T));
+
+    foreach (int item in values)
+        result.Add(item, Enum.GetName(typeof(T), item));
+
+    return result;
+}
+
+var map = EnumNamedValues<Rainbow>();
+
+foreach (var pair in map)
+    Console.WriteLine($"{pair.Key}:\t{pair.Value}");
+```
