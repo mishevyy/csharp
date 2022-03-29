@@ -102,13 +102,13 @@ void Foo(A[] stuff){}
 int[] nt = temperatures[1..4]; - Range (..)
 int[] nt = temperatures[^2]; - Index
 string[] people = { "Tom", "Bob", "Sam", "Kate", "Alice" };
-string[] peopleRange = people[..];		// Все элементы
-string[] peopleRange = people[1..];		// Bob, Sam, Kate, Alice (Со 2 по последний)
-string[] peopleRange = people[1..4];	// Bob, Sam, Kate (Со 2 по 3 включительно)
-string[] peopleRange = people[..4];		// Tom, Bob, Sam, Kate (с 1 по 3 включительно)
-string[] peopleRange = people[^2..];       // два последних - Kate, Alice
-string[] peopleRange = people[..^1];       // начиная с предпоследнего - Tom, Bob, Sam, Kate
-string[] peopleRange = people[^3..^1];     // два начиная с предпоследнего - Sam, Kate
+string[] peopleRange = people[..];      // Все элементы
+string[] peopleRange = people[1..];     // Bob, Sam, Kate, Alice (Со 2 по последний)
+string[] peopleRange = people[1..4];    // Bob, Sam, Kate (Со 2 по 3 включительно)
+string[] peopleRange = people[..4];     // Tom, Bob, Sam, Kate (с 1 по 3 включительно)
+string[] peopleRange = people[^2..];    // два последних - Kate, Alice
+string[] peopleRange = people[..^1];    // начиная с предпоследнего - Tom, Bob, Sam, Kate
+string[] peopleRange = people[^3..^1];  // два начиная с предпоследнего - Sam, Kate
 ```
 
 Также можно объявить диапазоны как переменные:
@@ -118,10 +118,10 @@ Range phrase = 1..4;
 string[] peopleRange = people[phrase];
 ```
 
-## Структура Span<T> (нововведение с# 8.0)
+## Структура `Span<T>` (нововведение с# 8.0)
 
 [Структура Span](https://docs.microsoft.com/ru-ru/dotnet/api/system.span-1?view=net-5.0)
-Span позволяет работать с памятью более эффективно и избежать ненужных выделений памяти. 
+Span позволяет работать с памятью более эффективно и избежать ненужных выделений памяти.
 Так, используем вместо массивов Span:
 
 ```c#

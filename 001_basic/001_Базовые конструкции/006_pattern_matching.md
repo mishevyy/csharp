@@ -1,5 +1,4 @@
-
-## Соответствие шаблону
+# Соответствие шаблону
 
 Сопоставление шаблонов поддерживает выражения `is` и `switch`. Каждое из них позволяет проверять объект и его свойства и определять, соответствует ли этот объект искомому шаблону. Для добавления правил в шаблон используется ключевое слово `when`.
 
@@ -47,7 +46,6 @@ public static int SumPositiveNumbers(IEnumerable<object> sequence)
 - `case null:` — шаблон константы `null`.
 - `default:` — знакомый вариант по умолчанию.
 
-
 ## Дополнительные шаблоны в нескольких расположениях
 
 ### Выражения switch
@@ -74,11 +72,9 @@ Enumerable.Range(1, 100)
     .ForEach(Console.WriteLine);
 ```
 
-
-
 ### Шаблоны свойств
 
-**Шаблон свойств** позволяет сопоставлять свойства исследуемого объекта. 
+**Шаблон свойств** позволяет сопоставлять свойства исследуемого объекта.
 
 ```c#
 public static decimal ComputeSalesTax(Address location, decimal salePrice) =>
@@ -92,11 +88,9 @@ public static decimal ComputeSalesTax(Address location, decimal salePrice) =>
     };
 ```
 
-
-
 ### Шаблоны кортежей
 
-Некоторые алгоритмы зависят от нескольких наборов входных данных. **Шаблоны кортежей** позволяют переключаться между несколькими значениями, выраженными как [кортежи](https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/builtin-types/value-tuples). 
+Некоторые алгоритмы зависят от нескольких наборов входных данных. **Шаблоны кортежей** позволяют переключаться между несколькими значениями, выраженными как [кортежи](https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/builtin-types/value-tuples).
 
 ```c#
 public static string RockPaperScissors(string first, string second)
@@ -111,8 +105,6 @@ public static string RockPaperScissors(string first, string second)
         (_, _) => "tie"
     };
 ```
-
-
 
 ## Позиционные шаблоны
 
