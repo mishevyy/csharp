@@ -1,6 +1,6 @@
 # Создание пользовательской коллекции
 
-## Реализация интерфейсов IEnumerable, IEnumerator, IDisposable    
+## Реализация интерфейсов IEnumerable, IEnumerator, IDisposable
 
 ```c#
 class UserCollection : IEnumerable, IEnumerator, IDisposable
@@ -23,7 +23,7 @@ public IEnumerator GetEnumerator()
 }    
 ```
 
-**Реализация интерфейса IEnumerator: Свойство Current и Метод MoveNext()**
+**Реализация интерфейса IEnumerator: Свойство Current и Метод MoveNext().**
 
 ```c#
 private int position = -1;
@@ -61,4 +61,3 @@ public void Dispose()
     Reset();
 }
 ```
-

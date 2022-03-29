@@ -1,4 +1,5 @@
 # Минимальные требования для работы foreach
+
 `foreach` требует наличия в классе коллекций открытого метода GetEnumerator() и открытый метод MoveNext и поле Current или метода GetEnumerator(), который возвращает тип в котором размещены методы MoveNext и поле Current для того что бы в foreach вызвался метод Reset нужно  унаследовать интерфейс IDisposable, в реализации метода Dispose который вызывает методв Reset()
 
 ```c#
@@ -53,4 +54,3 @@ class PersonCollection
     }
 }
 ```
-

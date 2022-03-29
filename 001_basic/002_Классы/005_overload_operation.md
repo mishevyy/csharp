@@ -95,7 +95,7 @@ public static bool operator !=(Point p1, Point p2)
 }
 ```
 
-### Для работы операторов сравнения реализуют интерфейс IComparable.
+### Для работы операторов сравнения реализуют интерфейс IComparable
 
 ```c#
 public int CompareTo(Point p)

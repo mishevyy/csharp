@@ -1,7 +1,7 @@
-# ObservableCollection<T>
+# `ObservableCollection<T>`
 
 Представляет динамическую коллекцию данных, которая выдает уведомления при добавлении и удалении элементов, а также при обновлении списка.
-https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.objectmodel.observablecollection-1
+[ObservableCollection](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.objectmodel.observablecollection-1)
 
 ```c#
 class User
@@ -51,4 +51,3 @@ private static void Users_CollectionChanged(object sender, NotifyCollectionChang
     }
 }
 ```
-

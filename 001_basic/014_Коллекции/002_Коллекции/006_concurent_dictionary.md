@@ -1,8 +1,7 @@
-# ConcurrentDictionary<TKey,TValue>
+# `ConcurrentDictionary<TKey,TValue>`
 
 Представляет потокобезопасную коллекцию пар "ключ-значение", доступ к которой могут одновременно получать несколько потоков.
-
-https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.concurrent.concurrentdictionary-2?view=net-5.0
+[ConcurrentDictionary](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.concurrent.concurrentdictionary-2?view=net-5.0)
 
 ```c#
 private static void Main()
@@ -53,4 +52,3 @@ private static void EnumerateMovies(ConcurrentDictionary<string, double> movieRa
     Console.WriteLine(new string('-', 80));
 }
 ```
-

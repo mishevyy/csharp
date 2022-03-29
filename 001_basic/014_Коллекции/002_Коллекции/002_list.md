@@ -1,8 +1,8 @@
-# List<T>
+# `List<T>`
 
-Представляет строго типизированный список объектов, доступных по индексу. 
+Представляет строго типизированный список объектов, доступных по индексу.
 Поддерживает методы для поиска по списку, выполнения сортировки и других операций со списками.
-https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.list-1
+[List](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.list-1)
 
 ## Работа с коллекцией на примере класса
 
@@ -49,25 +49,25 @@ elements.Capacity = 100;
 elements.RemoveAt(2);
 ```
 
-*Вставка элемента по индексу (возможно вставить только в свободный индекс)*
+*Вставка элемента по индексу (возможно вставить только в свободный индекс).*
 
 ```c#
 elements.Insert(2, new Element { Id = 4, Name = "Four" });
 ```
 
-*Если количество Count больше размера Capacity можно оптимизировать коллекцию TrimExcess()*
+*Если количество Count больше размера Capacity можно оптимизировать коллекцию TrimExcess().*
 
 ```
 elements.TrimExcess();
 ```
 
-*Сортировка. Для использования метода Sort Необходимо что бы объект реализовывал интерфейс IComparable<Element>*
+*Сортировка. Для использования метода Sort Необходимо что бы объект реализовывал интерфейс `IComparable<Element>`*
 
 ```c#
 elements.Sort();
 ```
 
-*Сортировка с применением делегата Comparison<T>*
+*Сортировка с применением делегата `Comparison<T>`*
 
 ```c#
 elements.Sort((x, y) =>
@@ -90,4 +90,3 @@ elements.ForEach(x => Console.WriteLine(x));
 ```c#
 bool test = elements.TrueForAll(x => x.Id.GetType() == typeof(int));
 ```
-

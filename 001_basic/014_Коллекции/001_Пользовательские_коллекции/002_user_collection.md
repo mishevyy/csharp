@@ -12,7 +12,7 @@ class UserCollection<T> : IEnumerable<T>, IEnumerator<T>, IDisposable
 }
 ```
 
-**Реализация интерфейса IEnumerable<T>**
+**Реализация интерфейса `IEnumerable<T>`**
 
 ```c#
 IEnumerator IEnumerable.GetEnumerator()
@@ -26,7 +26,7 @@ IEnumerator<T> IEnumerable<T>.GetEnumerator()
 }
 ```
 
-**Реализация интерфейса IEnumerator<T>**
+**Реализация интерфейса `IEnumerator<T>`**
 
 ```c#
 private int position = -1;
@@ -57,7 +57,7 @@ void IEnumerator.Reset()
 }
 ```
 
-**Реализация интерфейса IDisposable:** 
+**Реализация интерфейса IDisposable:**
 
 ```c#
 void IDisposable.Dispose()
@@ -65,4 +65,3 @@ void IDisposable.Dispose()
     Reset();
 }
 ```
-

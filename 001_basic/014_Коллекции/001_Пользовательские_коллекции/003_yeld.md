@@ -1,6 +1,6 @@
 # Инструкция Yield
 
-[Yield ](https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/keywords/yield)
+[Yield](https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/keywords/yield)
 
 *Итератор. Может существовать только внутри класса.*
 
@@ -57,4 +57,3 @@ foreach (var item in cl.GetNumbers())
     Console.WriteLine(item);
 }
 ```
-

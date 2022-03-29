@@ -1,7 +1,7 @@
-# Dictionary<TKey,TValue>
+# `Dictionary<TKey,TValue>`
 
 Представляет коллекцию ключей и значений.
-https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.dictionary-2?view=net-5.0
+[Dictionary](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.dictionary-2?view=net-5.0)
 
 *Создание словаря*.
 
@@ -105,4 +105,3 @@ Dictionary<string, string>.ValueCollection valuesCollection = openWith.Values;
 ```c#
 Dictionary<string, string>.KeyCollection keyCollection = openWith.Keys;
 ```
-
