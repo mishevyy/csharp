@@ -4,7 +4,6 @@
 
 [лямбда]( https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/operators/lambda-expressions#natural-type-for-lambda-expressions)
 
-
 ```c#
 var op = (string s) => Console.WriteLine(s);
 op("asdasd");
@@ -47,5 +46,6 @@ public readonly struct Measurement
 }
 ```
 
-### Глобальные директивы using
+## Глобальные директивы using
+
 `global using <fully-qualified-namespace>;`

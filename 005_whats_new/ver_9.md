@@ -14,6 +14,7 @@ public record Person
     public string LastName { get; set; }
 }
 ```
+
 Несмотря на поддержку изменения, записи предназначены в первую очередь для неизменяемых моделей данных. Тип записи предоставляет следующие возможности:
 
 - [Краткий синтаксис для создания ссылочного типа с неизменяемыми свойствами.](https://docs.microsoft.com/ru-ru/dotnet/csharp/whats-new/csharp-9#positional-syntax-for-property-definition)
@@ -102,9 +103,8 @@ public static void Main()
 
 ### Встроенное форматирование для отображения
 
-ипы записей имеют создаваемый компилятором метод [ToString](https://docs.microsoft.com/ru-ru/dotnet/api/system.object.tostring), который отображает имена и значения открытых свойств и полей. Метод `ToString` возвращает строку в следующем формате:
-
-> <record type name> { <property name> = <value>, <property name> = <value>, ...}
+ипы записей имеют создаваемый компилятором метод [ToString](https://docs.microsoft.com/ru-ru/dotnet/api/system.object.tostring), который отображает имена и значения открытых свойств и полей. Метод `ToString` возвращает строку в следующем формате: 
+`<record type name> { <property name> = <value>, <property name> = <value>, ...}`
 
 ### Наследование
 
@@ -122,8 +122,6 @@ public static void Main()
 }
 ```
 
-
-
 ## Методы задания только инициализации
 
 ***Методы задания только для инициализации*** обеспечивают единообразный синтаксис для инициализации членов объекта. Инициализаторы свойств позволяют ясно понять, какое значение задает то или иное свойство. Недостаток заключается в том, что эти свойства должны быть устанавливаемыми. Начиная с C# 9.0, для свойств и индексаторов можно создавать методы доступа `init`, а не методы доступа `set`.
@@ -140,8 +138,6 @@ public struct WeatherObservation
         $"Temp = {TemperatureInCelsius}, with {PressureInMillibars} pressure";
 }
 ```
-
-
 
 ## Улучшения сопоставления шаблонов
 
@@ -164,8 +160,6 @@ public static bool IsLetterOrSeparator(this char c) =>
     c is (>= 'a' and <= 'z') or (>= 'A' and <= 'Z') or '.' or ',';
 ```
 
-
-
 ## Функции подбора и завершения
 
 Многие другие функции позволяют более эффективно писать код. В C# 9.0 можно опустить тип в [выражении `new`](https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/operators/new-operator), если тип созданного объекта уже известен. Наиболее часто это используется в объявлениях полей.
@@ -177,6 +171,3 @@ var forecast = station.ForecastFor(DateTime.Now.AddDays(2), new());
 
 WeatherStation station = new() { Location = "Seattle, WA" };
 ```
-
-
-

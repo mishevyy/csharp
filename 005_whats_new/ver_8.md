@@ -4,8 +4,6 @@
 
 Теперь вы можете добавлять члены в интерфейсы и предоставлять реализацию для этих членов. Эта возможность языка позволяет разработчикам API добавлять методы в интерфейс в более поздних версиях, не нарушая исходный код или совместимость на уровне двоичного кода с существующими реализациями этого интерфейса.
 
-
-
 ## Дополнительные шаблоны в нескольких расположениях
 
 ### Выражения switch
@@ -32,11 +30,9 @@ Enumerable.Range(1, 100)
     .ForEach(Console.WriteLine);
 ```
 
-
-
 ### Шаблоны свойств
 
-**Шаблон свойств** позволяет сопоставлять свойства исследуемого объекта. 
+**Шаблон свойств** позволяет сопоставлять свойства исследуемого объекта.
 
 ```c#
 public static decimal ComputeSalesTax(Address location, decimal salePrice) =>
@@ -50,11 +46,9 @@ public static decimal ComputeSalesTax(Address location, decimal salePrice) =>
     };
 ```
 
-
-
 ### Шаблоны кортежей
 
-Некоторые алгоритмы зависят от нескольких наборов входных данных. **Шаблоны кортежей** позволяют переключаться между несколькими значениями, выраженными как [кортежи](https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/builtin-types/value-tuples). 
+Некоторые алгоритмы зависят от нескольких наборов входных данных. **Шаблоны кортежей** позволяют переключаться между несколькими значениями, выраженными как [кортежи](https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/builtin-types/value-tuples).
 
 ```c#
 public static string RockPaperScissors(string first, string second)
@@ -69,8 +63,6 @@ public static string RockPaperScissors(string first, string second)
         (_, _) => "tie"
     };
 ```
-
-
 
 ## Позиционные шаблоны
 
@@ -104,8 +96,6 @@ static Quadrant GetQuadrant(Point point) => point switch
 };
 ```
 
-
-
 ## Объявления using
 
 Теперь блок using необязательно оборачивать в дополнительные скобки
@@ -118,8 +108,6 @@ static void Foo()
 }
 ```
 
-
-
 ## Асинхронные потоки
 
 В методе, который возвращает асинхронный поток, есть три свойства:
@@ -128,7 +116,7 @@ static void Foo()
 2. Он возвращает интерфейс [IAsyncEnumerable](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.iasyncenumerable-1).
 3. Метод содержит инструкции `yield return` для возвращения последовательных элементов в асинхронном потоке.
 
-Для использования асинхронного потока требуется добавить ключевое слово `await` перед ключевым словом `foreach` при перечислении элементов потока. Для добавления ключевого слова `await` требуется, чтобы метод, который перечисляет асинхронный поток, был объявлен с помощью модификатора `async` и возвращал тип, допустимый для метода `async`. Обычно это означает возвращение структуры [Task](https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.tasks.task) или [Task](https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.tasks.task-1). Это также может быть структура [ValueTask](https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.tasks.valuetask) или [ValueTask](https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.tasks.valuetask-1). Метод может использовать и создавать асинхронный поток. Это означает, что будет возвращен интерфейс [IAsyncEnumerable](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.iasyncenumerable-1). 
+Для использования асинхронного потока требуется добавить ключевое слово `await` перед ключевым словом `foreach` при перечислении элементов потока. Для добавления ключевого слова `await` требуется, чтобы метод, который перечисляет асинхронный поток, был объявлен с помощью модификатора `async` и возвращал тип, допустимый для метода `async`. Обычно это означает возвращение структуры [Task](https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.tasks.task) или [Task](https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.tasks.task-1). Это также может быть структура [ValueTask](https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.tasks.valuetask) или [ValueTask](https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.tasks.valuetask-1). Метод может использовать и создавать асинхронный поток. Это означает, что будет возвращен интерфейс [IAsyncEnumerable](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.iasyncenumerable-1).
 
 ```c#
 public static async System.Collections.Generic.IAsyncEnumerable<int> GenerateSequence()
@@ -145,8 +133,6 @@ await foreach (var number in GenerateSequence())
     Console.WriteLine(number);
 }
 ```
-
-
 
 ## Индексы и диапазоны
 
@@ -167,13 +153,13 @@ await foreach (var number in GenerateSequence())
 int[] nt = temperatures[1..4]; - Range (..)
 int[] nt = temperatures[^2]; - Index
 string[] people = { "Tom", "Bob", "Sam", "Kate", "Alice" };
-string[] peopleRange = people[..];		// Все элементы
-string[] peopleRange = people[1..];		// Bob, Sam, Kate, Alice (Со 2 по последний)
-string[] peopleRange = people[1..4];	// Bob, Sam, Kate (Со 2 по 3 включительно)
-string[] peopleRange = people[..4];		// Tom, Bob, Sam, Kate (с 1 по 3 включительно)
-string[] peopleRange = people[^2..];       // два последних - Kate, Alice
-string[] peopleRange = people[..^1];       // начиная с предпоследнего - Tom, Bob, Sam, Kate
-string[] peopleRange = people[^3..^1];     // два начиная с предпоследнего - Sam, Kate
+string[] peopleRange = people[..];      // Все элементы
+string[] peopleRange = people[1..];     // Bob, Sam, Kate, Alice (Со 2 по последний)
+string[] peopleRange = people[1..4];    // Bob, Sam, Kate (Со 2 по 3 включительно)
+string[] peopleRange = people[..4];     // Tom, Bob, Sam, Kate (с 1 по 3 включительно)
+string[] peopleRange = people[^2..];    // два последних - Kate, Alice
+string[] peopleRange = people[..^1];    // начиная с предпоследнего - Tom, Bob, Sam, Kate
+string[] peopleRange = people[^3..^1];  // два начиная с предпоследнего - Sam, Kate
 ```
 
 Также можно объявить диапазоны как переменные:
@@ -183,12 +169,10 @@ Range phrase = 1..4;
 string[] peopleRange = people[phrase];
 ```
 
-
-
-## Структура Span<T>
+## Структура `Span<T>`
 
 [Структура Span](https://docs.microsoft.com/ru-ru/dotnet/api/system.span-1?view=net-5.0)
-Span позволяет работать с памятью более эффективно и избежать ненужных выделений памяти. 
+Span позволяет работать с памятью более эффективно и избежать ненужных выделений памяти.
 Так, используем вместо массивов Span:
 
 ```c#
@@ -203,13 +187,11 @@ Span<int> firstDecade = temperaturesSpan.Slice(0, 10);    // нет выделе
 Span<int> lastDecade = temperaturesSpan.Slice(20, 10);    // нет выделения памяти под данные
 ```
 
-Для создания производных объектов Span применяется метод Slice, который из Spana выделяет часть и возвращает ее в виде другого объекта Span. 
+Для создания производных объектов Span применяется метод Slice, который из Spana выделяет часть и возвращает ее в виде другого объекта Span.
 Теперь объекты Span firstDecade и lastDecade работают с теми же данными, что и temperaturesSpan, а дополнительно память не выделяется.
 То есть во всех трех случаях мы работаем с тем же массивом temperatures. Мы даже можем в одном Span изменить данные, и данные изменятся в другом:
 
 Span < T > — Это структура ссылки , которая выделяется в стеке, а не в управляемой куче. Типы структур ref имеют ряд ограничений,  чтобы гарантировать, что их нельзя повысить до управляемой кучи, в том числе что они не могут быть упакованы, они не могут быть назначены переменным типа Object dynamic или любому типу интерфейса, они не могут быть полями в ссылочном типе и не могут использоваться в await и в yield границах. Кроме того, вызовы двух методов Equals(Object) и GetHashCode вызывают исключение NotSupportedException.
-
-
 
 ## Присваивание объединения со значением NULL
 
@@ -226,4 +208,3 @@ numbers.Add(i ??= 20);
 Console.WriteLine(string.Join(" ", numbers));  // output: 17 17
 Console.WriteLine(i);  // output: 17
 ```
-
