@@ -4,16 +4,16 @@
 
 Открытые методы:
 
-* static bool Equals(Object objA, Object objB) - статический метод для сравнения объектов.
-* static bool ReferenceEquals(Object objA, Object objB) - статический метод для сравнения объектов по ссылке, используется если переопределен виртуальный метод Equals, и нужно сравнить объекты по ссылке.
-* Type GetType() - возвращает тип объекта.
-* virtual bool Equals(Object objA) - сравнивает текущий объект с указанным. При переопределении Equals нужно переопределить метод GetHashCode.
-* virtual int GetHashCode() - хэш-функция по умолчанию. Хэш функции нужны для работы с словарей и хэш-таблиц.
-* virtual string ToString() - строковое представление объекта.
+* `static bool Equals(Object objA, Object objB)` - статический метод для сравнения объектов.
+* `static bool ReferenceEquals(Object objA, Object objB)` - статический метод для сравнения объектов по ссылке, используется если переопределен виртуальный метод Equals, и нужно сравнить объекты по ссылке.
+* `Type GetType()` - возвращает тип объекта.
+* `virtual bool Equals(Object objA)` - сравнивает текущий объект с указанным. При переопределении Equals нужно переопределить метод GetHashCode.
+* `virtual int GetHashCode()` - хэш-функция по умолчанию. Хэш функции нужны для работы с словарей и хэш-таблиц.
+* `virtual string ToString()` - строковое представление объекта.
 
 Защищенный метод:
 
-* Object MemeberwiseClone() - позволяет создать поверхностную копию (shallow)
+* `Object MemeberwiseClone()` - позволяет создать поверхностную копию (shallow)
 
 ```c#
 class MyClass // : Object - каждый класс не явно унаследован от Object
