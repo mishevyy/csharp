@@ -20,7 +20,7 @@ _Обращение к членам кортежа._
 Console.WriteLine($"{values.Item1} {values.Item2} {values.Item3}");
 ```
 
-_Именованая инициализация кортежа._
+_Именованная инициализация кортежа._
 
 ```c#
 var vNamed = (FirstItem: "", IntItem: 4);
@@ -42,7 +42,7 @@ var (first, _) = SplitCortezh();
 Console.WriteLine(first);
 ```
 
-_метод типа кортеж._
+_Метод возвращающий тип кортеж._
 
 ```c#
 static (string first, string middle) SplitCortezh()

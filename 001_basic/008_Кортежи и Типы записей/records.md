@@ -8,8 +8,14 @@ public record TestDelegateRecord<T>(int count, Action<T> action);
 
 public record Person
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+     public Person(string firstName, string lastName)
+     {
+         firstName = FirstName;
+         lastName = LastName;
+     }
+    
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
 }
 ```
 
