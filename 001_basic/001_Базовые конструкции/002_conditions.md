@@ -11,7 +11,7 @@ if (b > a)
 }
 ```
 
-### **if - else**
+**if - else**
 
 ```c#
 if (a > b)
@@ -24,7 +24,7 @@ else
 }
 ```
 
-### **if - else if**
+**if - else if**
 
 ```c#
 if (a > b)

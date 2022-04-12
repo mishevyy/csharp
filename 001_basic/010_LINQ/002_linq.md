@@ -11,33 +11,33 @@ LINQ поддерживает синтаксис выражения запрос
 Мы рекомендуем при написании запросов LINQ использовать синтаксис запросов везде, где это возможно, а синтаксис метода — только если это совершенно необходимо. Между этими формами синтаксиса нет никакой разницы в семантике или производительности. Выражения запросов обычно более удобочитаемыми, чем аналогичные выражения с использованием синтаксиса метода.
 Выражения запросов могут компилироваться в деревья выражений или в делегаты, в зависимости от типа, к которому применяется конкретный запрос. Запросы `IEnumerable<T>` компилируются в делегаты. Запросы `IQueryable` и `IQueryable<T>` компилируются в деревья выражений.
 
-В выражении запроса иногда требуется сохранить результат вложенного выражения, который будет использоваться в последующих предложениях. Это можно сделать с помощью ключевого слова let, которое создает новую переменную диапазона и инициализирует ее, используя результат предоставленного выражения.
+В выражении запроса иногда требуется сохранить результат вложенного выражения, который будет использоваться в последующих предложениях. Это можно сделать с помощью ключевого слова `let`, которое создает новую переменную диапазона и инициализирует ее, используя результат предоставленного выражения.
 
 ```c#
-        string[] strings =
-        {
-            "A penny saved is a penny earned.",
-            "The early bird catches the worm.",
-            "The pen is mightier than the sword."
-        };
+string[] strings =
+{
+    "A penny saved is a penny earned.",
+    "The early bird catches the worm.",
+    "The pen is mightier than the sword."
+};
 
-        // Split the sentence into an array of words
-        // and select those whose first letter is a vowel.
-        var earlyBirdQuery =
-            from sentence in strings
-            let words = sentence.Split(' ')
-            from word in words
-            let w = word.ToLower()
-            where w[0] == 'a' || w[0] == 'e'
-                || w[0] == 'i' || w[0] == 'o'
-                || w[0] == 'u'
-            select word;
+// Split the sentence into an array of words
+// and select those whose first letter is a vowel.
+var earlyBirdQuery =
+    from sentence in strings
+    let words = sentence.Split(' ')
+    from word in words
+    let w = word.ToLower()
+    where w[0] == 'a' || w[0] == 'e'
+    || w[0] == 'i' || w[0] == 'o'
+    || w[0] == 'u'
+    select word;
 
-        // Execute the query.
-        foreach (var v in earlyBirdQuery)
-        {
-            Console.WriteLine("\"{0}\" starts with a vowel", v);
-        }
+// Execute the query.
+foreach (var v in earlyBirdQuery)
+{
+    Console.WriteLine("\"{0}\" starts with a vowel", v);
+}
 ```
 
 ## Функции генерации последовательностей
@@ -59,16 +59,13 @@ public void RepeatNumber()
 ## Функции конвертации
 
 ```c#
- public void ConverToArray()
+public void ConverToArray()
 {
     byte[] array = new byte[10];
     new Random(42).NextBytes(array);
 
     var sortedArray = (from a in array
                         select a).ToArray();
-
-    for (int i = 0; i < sortedArray.Length; i++)
-        Console.Write(sortedArray[i] + " ");
 }
 
 public void ConverToList()
@@ -77,11 +74,6 @@ public void ConverToList()
 
     var listWords = (from w in words
                         select w).ToList();
-
-    foreach (var w in listWords)
-    {
-        Console.WriteLine(w);
-    }
 }
 
 public void ConvertToDictionary()
@@ -94,8 +86,6 @@ public void ConvertToDictionary()
     };
 
     var scoreRecordsDict = scoreRecords.ToDictionary(sr => sr.Name);
-
-    Console.WriteLine("Bob's score: {0}", scoreRecordsDict["Bob"]);
 }
 
 public void ConvertSelectedItems()
@@ -117,7 +107,6 @@ public void ConvertSelectedItems()
 ```c#
 public void CrossJoinQuery()
 {
-    #region cross-join
     string[] categories = {
         "Beverages",
         "Condiments",
@@ -131,17 +120,10 @@ public void CrossJoinQuery()
     var q = from c in categories
             join p in products on c equals p.Category
             select (Category: c, p.ProductName);
-
-    foreach (var v in q)
-    {
-        Console.WriteLine(v.ProductName + ": " + v.Category);
-    }
-    #endregion           
 }
 
 public void GroupJoinQquery()
 {
-    #region group-join
     string[] categories = {
         "Beverages",
         "Condiments",
@@ -151,7 +133,6 @@ public void GroupJoinQquery()
     };
 
     List<Product> products = GetProductList();
-
     var q = from c in categories
             join p in products on c equals p.Category into ps
             select (Category: c, Products: ps);
@@ -163,13 +144,11 @@ public void GroupJoinQquery()
         {
             Console.WriteLine("   " + p.ProductName);
         }
-    }
-    #endregion            
+    }            
 }
 
 public void CrossGroupJoin()
 {
-    #region cross-group-join
     string[] categories = {
         "Beverages",
         "Condiments",
@@ -188,13 +167,11 @@ public void CrossGroupJoin()
     foreach (var v in q)
     {
         Console.WriteLine(v.ProductName + ": " + v.Category);
-    }
-    #endregion            
+    }        
 }
 
 public void LeftOuterJoin()
 {
-    #region left-outer-join
     string[] categories = {
         "Beverages",
         "Condiments",
@@ -213,8 +190,7 @@ public void LeftOuterJoin()
     foreach (var v in q)
     {
         Console.WriteLine($"{v.ProductName}: {v.Category}");
-    }
-    #endregion            
+    }          
 }
 ```
 
@@ -289,14 +265,14 @@ public void SequenceOperations()
     // Сравнение
     bool match = vectorA.SequenceEqual(vectorB);
 
-    //
+    // Пересечения
     var intersectNumbers = vectorA.Intersect(vectorB);
     var exceptNumbers = vectorA.Except(vectorB);
 
-    //
+    // Уникальные значения
     var dist = exceptNumbers.Distinct();
 
-    //
+    // Объединение двух массивов
     var union = vectorA.Union(vectorB);
 
     // Разбивает элементы последовательности на блоки размером не более
