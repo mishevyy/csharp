@@ -2,11 +2,9 @@
 
 [делегаты](https://docs.microsoft.com/ru-ru/dotnet/csharp/programming-guide/delegates/)
 
-[ключевое слов делегат](https://docs.microsoft.com/ru-ru/previous-versions/visualstudio/visual-studio-2008/900fyy8e(v=vs.90)?redirectedfrom=MSDN)
+Делегат — это тип, который представляет ссылки на методы с определенным списком параметров и типом возвращаемого значения. Делегаты используются для передачи методов в качестве аргументов к другим методам. Обработчики событий — это ничто иное, как методы, вызываемые с помощью делегатов.
 
-[анонимные методы](https://docs.microsoft.com/ru-ru/previous-versions/visualstudio/visual-studio-2008/0yw3tz5k(v=vs.90)?redirectedfrom=MSDN)
-
-В C# обратные вызовы выполняются в безопасной к типам объектно-ориентированной манере с использованием делегатов. В сущности, делегат - это безопасный в отношении типов объект, указывающий на другой метод или возможно на список методов приложения, которые могут быть вызваны в более позднее время. В частности, делегат поддерживает три важных порции информации.
+В частности, делегат поддерживает три важных порции информации.
 
 - адрес метода, к которому он делает вызовы;
 - аргументы (если они есть) вызываемого метода;
@@ -14,25 +12,24 @@
 
 Все делегаты унаследованы MulticastDelegate, который унаследован от Delegate и по своей сути являются классам содержащий в себе метод
 
-Сигнатура делегата
-
-delegate *Тип возвращаемого значения* имя_делегата (параметры делегата)
-
-_Сигнатура делегата должна совпадать с сигнатурой вызываемого метода._
+*Сигнатура делегата должна совпадать с сигнатурой вызываемого метода.*
 
 ```c#
 public delegate void MyStringDelegate(string s);
 public delegate int MyIntDelegate(int a, int b);
 ```
 
-_Длинная записи инициализации делегата._
+*Длинная запись и инициализации делегата.*
 
 ```c#
+// Создание экземпляра делегата и сообщение ему метода TestStringDelegate
 MyStringDelegate stringDelegate = new MyStringDelegate(TestStringDelegate);
+
+// Вызов делегата
 stringDelegate.Invoke("Hello, World");
 ```
 
-_Добавление и удаление вызываемых методов в делегат._
+*Добавление и удаление вызываемых методов в делегат.*
 
 ```c#
 // Добавление 
@@ -42,7 +39,7 @@ stringDelegate += TestStringDelegate;
 stringDelegate -= TestStringDelegate;
 ```
 
-_Техника предположения делегата._
+*Техника предположения делегата.*
 
 ```c#
 MyStringDelegate stringDelegate2 = TestStringDelegate;
@@ -64,9 +61,9 @@ static int TetsIntDelegate(int a, int b)
 }
 ```
 
-## Лямбда методы
+## Лямбда методы и анонимные методы
 
-_Анонимный метод._
+*Анонимный метод.*
 
 ```c#
 Action<int> action = delegate (int x)
@@ -76,14 +73,14 @@ Action<int> action = delegate (int x)
 action(10);
 ```
 
-_Лямбда выражение._
+*Лямбда выражение.*
 
 ```c#
 Action<int> action2 = (x) => Console.WriteLine(x);
 action2(10);
 ```
 
-# Обобщенные делегаты
+## Обобщенные делегаты
 
 Дженерик делегат. `<T>` - тип, который будет принимать делегат, или возвращать.
 
@@ -103,11 +100,13 @@ action2(10);
 `delegate void GenericDelegateVar5In<in T>(T t);`
 `delegate T GenericDelegeteVar5Out<out T>();`
 
-## Делегаты Func и Action
+### Делегаты Func и Action
 
-Action - не имеет возвращаемого значения, может иметь до 16 дженерик типов
+В BCl существует 2 универсальных делегата, подходящих почти на все случаи жизни, их использование избовляет от написания собственных делегатов
 
-Func -  имеет возвращаемое значения, может иметь до 16 дженерик типов
+`Action` - не имеет возвращаемого значения, может иметь до 16 дженерик типов
+
+`Func` -  имеет возвращаемое значения, может иметь до 16 дженерик типов
 
 ```c#
 static void Main()
@@ -126,7 +125,6 @@ static void Main()
 static void DisplayMessage(string msg, ConsoleColor txtColor, int printCount)
 {
     ConsoleColor previous = Console.ForegroundColor;
-
     Console.ForegroundColor = txtColor;
 
     for (int i = 0; i < printCount; i++)
@@ -141,41 +139,4 @@ static int Add(int a, int b)
 {
     return a + b;
 }
-```
-
-## Ковариантность и контрвариантность в делегатах
-
-```c#
-class Person
-{
-    public string Name { get; set; }
-    public int Age { get; set; }
-    public override string ToString()
-    {
-        return string.Format($"Name: {Name}, Age: {Age}");
-    }
-}
-
-class Employee : Person
-{
-    public string Profession { get; set; }
-    public override string ToString()
-    {
-        return string.Format($"Name: {Name}, Age: {Age}, Profession: {Profession}");
-    }
-}
-   
-static void Main()
-{
-    // Контрвариантность означает, что метод может принимать параметр,
-    // который является базовым для типа параметра
-    Action<Employee> a = new Action<Person>(MethodPerson);
-
-    // Ковариантность означает, что метод может возвратить тип,
-    // производный от типа возвращаемого делегата
-    Func<Person> f = new Func<Employee>(MethodEmpployee);
-}
-
-static void MethodPerson(Person p) { }
-static Employee MethodEmpployee() { return new Employee(); }
 ```
