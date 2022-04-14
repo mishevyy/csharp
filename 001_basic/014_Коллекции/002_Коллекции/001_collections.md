@@ -13,13 +13,12 @@
 
 ## Наиболее популярные коллекции
 
-`List<T>`  Наиболее часто используемая коллекция
+`List<T>` [List](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.list-1?view=net-5.0) Наиболее часто используемая коллекция
 Представляет строго типизированный список объектов, доступных по индексу.
-Поддерживает методы для поиска по списку, выполнения сортировки и других операций со списками.[List](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.list-1?view=net-5.0)
+Поддерживает методы для поиска по списку, выполнения сортировки и других операций со списками.
 
-Dictionary<TKey,TValue>
+`Dictionary<TKey,TValue>` [Dictionary](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.dictionary-2?view=net-5.0)
 Представляет коллекцию ключей и значений.
-[Dictionary](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.dictionary-2?view=net-5.0)
 
 ***
 

@@ -17,22 +17,26 @@ class UserCollection : IEnumerable, IEnumerator, IDisposable
 **Реализация интерфейса IEnumerable:**
 
 ```c#
+// Метод GetEnumerator возвращает текущий объект, задача GetEnumerator вернуть объект в котором буду находится метод MoveNext и поле Current
 public IEnumerator GetEnumerator()
 {
     return this;
 }    
 ```
 
-**Реализация интерфейса IEnumerator: Свойство Current и Метод MoveNext().**
+**Реализация интерфейса IEnumerator: свойство Current, метод MoveNext() и метод Reset().**
 
 ```c#
+// Начальное состояние
 private int position = -1;
 
+// Текущий элемент коллекции
 public object Current
 {
     get { return elements[position]; }
 }
 
+// Получение следующего элемента
 public bool MoveNext()
 {
     if (position < elements.Length - 1)
@@ -41,12 +45,9 @@ public bool MoveNext()
         return true;
     }
     return false;
-}  
-```
+}
 
-**Реализация интерфейса IEnumerator: метод Reset().**
-
-```c#
+// Возврат в начало коллекции
 public void Reset()
 {
     position = -1;

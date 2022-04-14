@@ -286,4 +286,3 @@ class Test : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;       
 }
 ```
-
