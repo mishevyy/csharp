@@ -24,38 +24,29 @@
 
 ## Другие часто используемы коллекции
 
-`SortedList<TKey,TValue>`
+`SortedList<TKey,TValue>` [SortedList](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.sortedlist-2)
 Представляет коллекцию пар "ключ-значение", упорядоченных по ключу на основе реализации `IComparer<T>`.
-[SortedList](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.sortedlist-2)
 
-`LinkedList<T>`
+`LinkedList<T>` [LinkedList](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.linkedlist-1)
 Представляет двунаправленный список.
-[LinkedList](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.linkedlist-1)
 
-`Queue<T>`
+`Queue<T>` [Queue](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.queue-1)
 Представляет коллекцию объектов, основанную на принципе «первым поступил — первым обслужен».
-[Queue](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.queue-1)
 
-`Stack<T>`
+`Stack<T>` [Stack](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.stack-1)
 Представляет коллекцию переменного размера экземпляров одинакового заданного типа, обслуживаемую по принципу "последним пришел - первым вышел" (LIFO).
-[Stack](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.generic.stack-1)
 
-`BitArray`
+`BitArray` [BitArray](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.bitarray)
 Управляет компактным массивом двоичных значений, представленных логическими значениями,  где значение true соответствует включенному биту (1), а значение false соответствует отключенному биту (0).
-[BitArray](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.bitarray)
 
 ***
 
 ## Наблюдаемые коллекции
 
-`ObservableCollection<T>`
+`ObservableCollection<T>` [ObservableCollection](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.objectmodel.observablecollection-1)
 Представляет динамическую коллекцию данных, которая выдает уведомления при добавлении и удалении элементов, а также при обновлении списка.
-https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.objectmodel.observablecollection-1
 
 ## Потокобезопасные коллекции
 
-ConcurrentDictionary<TKey,TValue>
-
+`ConcurrentDictionary<TKey,TValue>` [Concurrent](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.concurrent?view=net-5.0) [ConcurrentDictionary](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.concurrent.concurrentdictionary-2?view=net-5.0)
 Представляет потокобезопасную коллекцию пар "ключ-значение", доступ к которой могут одновременно получать несколько потоков.
-[ConcurrentDictionary](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.concurrent.concurrentdictionary-2?view=net-5.0)
-[Concurrent](https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.concurrent?view=net-5.0)
