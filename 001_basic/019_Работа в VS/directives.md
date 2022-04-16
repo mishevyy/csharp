@@ -27,7 +27,7 @@ _Выполнение команды в зависимости типа запу
 #endif
 
 #if (DEBUG && !VC_V7)
-            Console.WriteLine("DEBUG is defined");
+    Console.WriteLine("DEBUG is defined");
 #elif (!DEBUG && VC_V7)
     Console.WriteLine("VC_V7 is defined");
 #elif (DEBUG && VC_V7)
@@ -37,16 +37,16 @@ _Выполнение команды в зависимости типа запу
 #endif
 ```
 
-_Определениеошибки._
+_Определение ошибки._
 
 ```c#
 #error Ошибка определенная пользователем.
-Console.WriteLine(1);
+    Console.WriteLine(1);
 ```
 
 _Определение предупреждение первого уровня из определенного места в коде._
 
 ```c#
 #warning Пользовательское предупреждение.
-Console.WriteLine("Hello World!");
+    Console.WriteLine("Hello World!");
 ```

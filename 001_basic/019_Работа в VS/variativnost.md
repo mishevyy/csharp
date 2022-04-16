@@ -1,162 +1,170 @@
 # Вариативность
 
-## Контрвариантность
-
 [Ковариантность и контрвариантность](https://docs.microsoft.com/ru-Ru/dotnet/standard/generics/covariance-and-contravariance)
-[Создание ковариантных и контрвариантных интерфейсов](https://docs.microsoft.com/ru-ru/dotnet/csharp/programming-guide/concepts/covariance-contravariance/creating-variant-generic-interfaces)
 
-Контрвариантность - параметр-тип может быть преобразован от класса к классу, производному от него.
+Ковариантность - тип может быть преобразован от к своему базовому типу (UpCas).
+Контрвариантность - базовый тип может быть преобразован к одному из своих производных типов (DownCast).
 
-В C# контрвариативный тип обозначается ключевым словом in и может находится только во входной позиции, в качестве аргумента.
+Все объекты в c# являются ковариантными, то есть могут быть безопасно приведены к своему базовому классу, и не поддерживают контрвариантность.
+Контрвариантность возможна только в параметризированных делегатах и интерфейсах
 
 ```c#
-// Контрвариантный делегат
-delegate void MyDelegate<in T>(T val);
-
-class Figure { public virtual void Method() => Console.WriteLine("figure"); }
-class Circle : Figure { public override void Method() => Console.WriteLine("circle"); }
-class Square : Figure { public override void Method() => Console.WriteLine("square"); }
-
-// Контрвариантный интерфейс
-interface IDrawer<in T>
+public class Cap
 {
-    void DrawFigure();
-
-    void FigureInfo(T val);
+    public string CapName { get; private set; }
+    public Cap(string capName)
+    {
+        CapName = capName;
+    }
+    public void TakeCap()
+    {
+        Console.WriteLine($"Взять {CapName} кружку");
+    }   
 }
 
-class Drawer<T> : IDrawer<T>
+public class CapOfCoffee : Cap
 {
-    private T _figure;
+    public CapOfCoffee(string capName)
+        : base(capName) { }
 
-    public Drawer(T figure)
+    public void Drink()
     {
-        _figure = figure;
+        Console.WriteLine("Выпить кофе");
     }
-
-    public void DrawFigure()
-    {
-        Console.WriteLine(_figure);
-    }
-
-    public void FigureInfo(T val)
-    {
-        Console.WriteLine(val);
-    }
-}
-   
-static void Main()
-{
-    Figure figure = new Circle();
-    IDrawer<Circle> draw = new Drawer<Figure>(figure);
-    draw.DrawFigure();
-
-    MyDelegate<Figure> myFigureDel = new MyDelegate<Figure>(CatUser);
-    MyDelegate<Circle> cirecleDel = myFigureDel;
-    myFigureDel(new Figure());
-    myFigureDel(new Circle());
-
-    // Приммеры из Рихтера
-    // Коваринтность
-    Func<Object, ArgumentException> fn1 = null; // Явного приведения не требуется
-    Func<string, Exception> fn2 = fn1;
-    Exception e = fn2(""); 
-}
-
-public static void CatUser(Figure figure)
-{
-    Console.WriteLine(figure.GetType().Name);
 }
 ```
 
-## Ковариантность
+## Ковариантность массивов
 
-[Ковариантность и контрвариантность](https://docs.microsoft.com/ru-Ru/dotnet/standard/generics/covariance-and-contravariance)
-
-Ковариантность - аргумент-тип может быть преобразован от класса к одному из его базовых классов.
-
-В C# ковариантность обозначается  ключевым словом `out` и может находится только в выходной позици, т.е в качестве возвращаемого значения
+Массивы поддерживают ковариантность, то есть массив элементов производного типа, можно привести к массиву элементов базового типа.
 
 ```c#
-delegate T MyDelegate<out T>();   // out - Для возвращаемого значения.
+void CovariantArray()
+{
+    // Ковариантность - тип может быть приведен к одному из его базовых типов
+    // Массивы поддерживают ковариантность
 
-public abstract class Shape { }
-public class Circle : Shape { }
+    CapOfCoffee[] capsOfCoffe =
+    {
+        new CapOfCoffee("Red Cap"),
+        new CapOfCoffee("Yellow Cap"),
+    };
 
-public interface IContainer<out T>
+    // Тип CapOfCoffee приводится к базовому типу Cap
+    // во время перебора элементов
+    foreach (Cap item in capsOfCoffe)
+    {
+        item.TakeCap();
+    }
+}
+```
+
+## Ковариантность и контрвариантность в делегатах
+
+### Ковариантность
+
+Ковариантность в делегатах, делегат может возвращать тип производный от типа, который указан в возвращаемом типе делегата.
+Ковариантность поддерживается только в возвращаемых параметрах типа, то есть в параметрах которые обазначены ключевым словом out
+`delegate Func<out T>()` - одна из перегрузок делегата Func
+
+``` c#
+void CovariantDelegate()
+{
+    // Ковариантность в делегатах, делегат может возвращать тип
+    // производный от типа, который указан в возвращаемом типе делегата.
+    // Ковариантность поддерживается только в возвращаемых параметрах типа, то есть в параметрах
+    // которые обазначены ключевым словом out
+    // delegate Func<out T>() - одна из перегрузок делегата Func
+
+    Func<Cap> func = new Func<CapOfCoffee>(VerboseCovCap);
+    Cap cap = func();
+
+    if(cap is CapOfCoffee ofCoffee)
+    {
+        ofCoffee.Drink();
+    }
+    
+}
+
+static CapOfCoffee VerboseCovCap()
+{
+    return new CapOfCoffee("Cap Of Coffe");
+}
+```
+
+### Контрвариантность
+
+Контрвариантность в делегатах, делегат может принимать параметр типа который являеться базовым для типа параметра.
+Контрвариантность поддерживается только во входящих параметрах, то есть в параметрах которые обозначены ключевым словом in
+`delegate Action<in T>` - одна из перегрузок делегата Action
+
+```c#
+void ContrvariantDelegate()
+{
+    // Контрвариантность в делегатах, делегат может принимать параметр типа
+    // который являеться базовым для типа параметра.
+    // Контрвариантность поддерживается только во входящих параметрах, то есть в параметрах
+    // которые обозначены ключевым словом in
+    // delegate Action<in T> - одна из перегрузок делегата Action
+
+    Action<CapOfCoffee> action = new Action<Cap>(VerboseCap);
+    action(new CapOfCoffee("Red Cap"));
+}
+
+static void VerboseCap(Cap cap)
+{
+    cap.TakeCap();
+}
+
+```
+
+## Ковариантность и контрвариантность в интерфейсах
+
+### Контрвариантность интерфейсов
+
+```c#
+// Контрвариантный интерфейс
+interface ICap<in T>
+{
+    void VerboseCap(T t);
+}
+
+class CapTest<T> : ICap<T>
+{
+    public void VerboseCap(T t)
+    {
+        throw new NotImplementedException();
+    }
+}
+   
+void ContrvariantInterface()
+{
+    ICap<CapOfCoffee> cap = new CapTest<Cap>();
+    cap.VerboseCap(new CapOfCoffee(""));
+}
+```
+
+## Ковариантность интерфейсов
+
+```c#
+
+// Ковариантный интерфейс
+interface IContainer<out T>
 {
     T Figure { get; }
 }
 
-public class Container<T> : IContainer<T>
+class CapOfTest<T> : ICapOf<T>
 {
-    private T figure;
-
-    public Container(T figure)
+    public T VerboseCap()
     {
-        this.figure = figure;
-    }
-
-    public T Figure
-    {
-        get { return figure; }
-    }
-}
-    
-static void Main()
-{
-    Circle circle = new Circle();
-    IContainer<Shape> container = new Container<Circle>(circle);
-    Console.WriteLine(container.Figure.ToString());
-
-    MyDelegate<Circle> delegateCircle = new MyDelegate<Circle>(CircleCreator);
-    // От производного к базовому.                      
-    MyDelegate<Shape> delegateShape = delegateCircle;    
-
-    Shape animal = delegateShape.Invoke();
-    Console.WriteLine(animal.GetType().Name);
-}
-
-public static Circle CircleCreator()
-{
-    return new Circle();
-}
-```
-
-
-## Ковариантность и контрвариантность в делегатах
-
-```c#
-class Person
-{
-    public string Name { get; set; }
-    public int Age { get; set; }
-    public override string ToString()
-    {
-        return string.Format($"Name: {Name}, Age: {Age}");
+        throw new NotImplementedException();
     }
 }
 
-class Employee : Person
+void CovariantInterface()
 {
-    public string Profession { get; set; }
-    public override string ToString()
-    {
-        return string.Format($"Name: {Name}, Age: {Age}, Profession: {Profession}");
-    }
+    ICapOf<Cap> capOf = new CapOfTest<CapOfCoffee>();
+    Cap cap = capOf.VerboseCap();
 }
-   
-static void Main()
-{
-    // Контрвариантность означает, что метод может принимать параметр,
-    // который является базовым для типа параметра
-    Action<Employee> a = new Action<Person>(MethodPerson);
-
-    // Ковариантность означает, что метод может возвратить тип,
-    // производный от типа возвращаемого делегата
-    Func<Person> f = new Func<Employee>(MethodEmpployee);
-}
-
-static void MethodPerson(Person p) { }
-static Employee MethodEmpployee() { return new Employee(); }
 ```
