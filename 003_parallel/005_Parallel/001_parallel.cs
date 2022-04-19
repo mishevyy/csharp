@@ -1,7 +1,42 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+// Параллелизм данных
+// Библиотека параллельных задач (TPL) поддерживает параллелизм данных с помощью класса System.Threading.Tasks.Parallel
+// Вы пишете логику цикла для Parallel.For или Parallel.ForEach в значительной степени так же, как пишете последовательный цикл
+```c#
+namespace tpl
+{
+    class Program
+    {
+        static void Main()
+        {
+            int[] stuff = Enumerable.Range(0, 100).ToArray();
+
+            // Последовательная обработка
+            foreach (int i in stuff)
+                Process(i);
+
+            Console.WriteLine(new String('*', 25));
+
+            // Паралельная foreach
+            Parallel.ForEach(stuff, iterator => Process(iterator));
+
+            // Паралельная for
+            Parallel.For(0, stuff.Length, iterator => Process(iterator));
+
+            Parallel.Invoke(
+                () => Process(2),
+                () => Process(4),
+                () => Process(6));
+
+        }
+
+        static void Process(int i)
+        {
+            Console.WriteLine(Math.Pow(i, 2));
+        }
+    }
+}
+
+
 
 namespace ParallelProgramming
 {
@@ -70,3 +105,46 @@ namespace ParallelProgramming
         }
     }
 }
+```
+
+```c#
+namespace edu;
+
+class Program
+{
+    static void Main()
+    {
+
+    }
+
+    static int DirectedBytes(string path, string searchPattern, SearchOption searchOption)
+    {
+        var files = Directory.EnumerateFiles(path, searchPattern, searchOption);
+        int masterTotal = 0;
+
+        ParallelLoopResult result = Parallel.ForEach<string, int>(files,
+            () => { return 0; },
+            (file, loopState, index, taskLocalTotal) =>
+            {
+                int fileLength = 0;
+                FileStream fs = null;
+                try
+                {
+                    fs = File.OpenRead(file);
+                }
+                catch (IOException) { }
+                finally
+                {
+                    if (fs != null)
+                        fs.Dispose();
+                }
+
+                return taskLocalTotal + fileLength;
+            },
+            taskLocalTotal => { Interlocked.Add(ref masterTotal, taskLocalTotal); }
+            );
+
+        return masterTotal;
+    }
+}
+```

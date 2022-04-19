@@ -2,40 +2,37 @@
 
 Многозадачность - свойство операционной системы или среды программирования обеспечивать возможность параллельной (или псевдопараллельной) обработки нескольких процессов. CLR назначает каждому потоку свой стек и методы имеют свои собственные локальные переменные.
 
-## Thread
+Компьютер с одним процессором может одновременно выполнять только что-то одно. Следовательно, операционная система должна распределять физический процессор между всеми своими потоками (логическими процессами).
 
-Основным классом управления потоками является класс `Thread`. Он позволяет создать экземпляр и передать ему через параметр делегат `ThreadStart` или параметризированный делегат ParameterizedThreadStart, ограничением является то что ParameterizedThreadStart принимает один аргумент типа `object?`
+В произвольный момент времени ОС передает процессору на исполнение один поток. Этот поток исполняется в течении некоторого временного интервала, иногда называемого тактом. После завершения этого интервала контекст ос переключается на другой поток. После переключения контекста процессор исполняет выбранный поток, пока не истечет выделенное время потока, после этого снова происходит переключение контекста. 
 
-### Инициализация потока, и сообщение ему метода
+Время переключения контекста зависит от архитектуры и быстродействия процессора, поэтому оценить трудозатраты достаточно сложно, но важно помнить, что при разработке переключение контекста нужно по возможности избегать, так как они потребляют память и требуют время для своего создания, управления и завершения. С другой стороны потоки обеспечивают отзывчивость и увеличивают время реакции приложения. Так же не стоит забывать, что компьютер с несколькими процессорами исполняет несколько потоков одновременно.
+
+## Управление потоками
+
+Основным классом управления потоками является класс `Thread`. Он позволяет создать экземпляр и передать ему через параметр делегат `ThreadStart` или параметризированный делегат `ParameterizedThreadStart`, ограничением является то что ParameterizedThreadStart принимает один аргумент типа `object?`. Для создания физического потока, следует воспользоваться методом Start, класса Thread.
 
 ```c#
-Thread thread = new Thread(Foo);
-thread.Start();  
-
-static void Foo()
+static void Main()
 {
+    Console.WriteLine("Метод Main начал работу");
+    Thread dedicatedThread = new Thread(ComputeBoundOp);
+    dedicatedThread.Start(5);
+
+    Console.WriteLine("Main выполняет свою работу");
+    Thread.Sleep(10000); // Имитация другой работы (10 сек)
+
+    // Ожидание завершения потока, те другие потоки не начнут свою работу пока не завершиться текущий
+    dedicatedThread.Join();
 }
-```
 
-### Инициализация потока с параметром
-
-```c#
-Thread parametrizeThread = new Thread(ParametrizeThread);
-parametrizeThread.Start('*');
-
-static void ParametrizeThread(object? temp)
-{    
-}
-```
-
-### Передача анонимного метода в поток
-
-```c#
-Thread thread = new Thread((object argument) => 
+static void ComputeBoundOp(object? state) // Метод выполняемый выделеным потоком
 {
-    Console.WriteLine(new string(' ', 30) + "{0}", (int)argument); 
-});
-thread.Start(5);
+    Console.WriteLine("In ComputeBoundOp: state={0}", state);
+    Thread.Sleep(1000);
+
+    // После возвращения методом работы выделеный поток завершается
+}
 ```
 
 ### Получение информации о потоке
@@ -84,10 +81,22 @@ class Program
 По умолчанию свойство IsBackground равно false.  IsBackground - устанавливает поток как фоновый.
 
 ```c#
-Thread thread = new Thread(Foo);
-thread.Start();  
+static void Main()
+{
+    Thread t = new Thread(Worker);
+    t.IsBackground = true;
+    t.Start();
 
-thread.IsBackground = true; // Не ждем завершения вторичного потока в данном случае.
+    // В случае активного потока приложение проработает 10 секунд,
+    // в случае фонового прекратит работу сразу.
+    Console.WriteLine("Return from Main");
+}
+
+static void Worker()
+{
+    Thread.Sleep(10000);
+    Console.WriteLine("Return from Worker");
+}
 ```
 
 ### Прерывание выполнения потока
@@ -121,30 +130,25 @@ class Program
         // Ожидание первичным потоком завершения вторичного потока
         thread.Join();
     
-        Console.ForegroundColor = ConsoleColor.Green;
-    
         for (int i = 0; i < 100; i++)
         {
             Thread.Sleep(20);
             Console.Write("-");
         }
-    
-        Console.ForegroundColor = ConsoleColor.Gray;
+        
         Console.WriteLine("\nПервичный поток завершился.");
     }
     
     private static void ThreadMethod()
     {
         Console.WriteLine("ID Вторичного потока: {0}", Thread.CurrentThread.ManagedThreadId);
-        Console.ForegroundColor = ConsoleColor.Yellow;
     
         for (int i = 0; i < 100; i++)
         {
             Thread.Sleep(100);
             Console.WriteLine(".");
         }
-    
-        Console.ForegroundColor = ConsoleColor.Gray;
+        
         Console.WriteLine("Вторичный поток завершился.");
     }
 }
