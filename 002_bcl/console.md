@@ -63,3 +63,15 @@ private static void RedirectionConsoleStream()
     sw.Close();
 }
 ```
+
+
+```c#
+// Вывод в консоль с отступами
+Console.WriteLine("{0, -10} {1, -5}", 123, 872321);
+Console.WriteLine("{0, -10} {1, -5}", 123234, 215);
+Console.WriteLine("{0, -10} {1, -5}", 12312, 2167);
+Console.WriteLine("{0, -10} {1, -5}", 12323, 2112);
+Console.WriteLine("{0, -10:X} {1, -5}", 12323, 2112);
+Console.WriteLine("{0, -10:D} {1, -5}", 12323, 2112);
+Console.WriteLine("{0, -10:C} {1, -5}", 12323, 2112);
+```
